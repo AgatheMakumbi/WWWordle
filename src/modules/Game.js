@@ -9,9 +9,16 @@ class Game {
     constructor(nbTentatives) {
         this.#tentatives = this.generateTentatives(nbTentatives);
         //Au moment de l’instanciation de Game, il est important de changer l’activation de la première tentative
-        this.#tentatives[0].toggleState();
+        
     };
 
+    startTentative(){
+        if(this.#activeTentative < this.#tentatives.length){
+            this.#tentatives[this.#activeTentative].toggleState();
+            this.#tentatives[this.#activeTentative].sendAnswer();
+            this.nextTentative();
+        }
+    }
     //Générer un tableau de tentatives
     generateTentatives(nbTentatives) {
         //Pour chacune de ces tentatives, créez une instance de Answer et stockez ces instances dans un tableau.
@@ -28,9 +35,11 @@ class Game {
 
         //si la tentive courante est la dernière, alors la tentive suivante est la première
         if(this.#activeTentative === this.#tentatives.length - 1){
-            this.#activeTentative = 0;
+            this.displayMessage('Game over');
+            this.#activeTentative[this.#tentatives.length - 1].toggleState;
         }else{
             this.#activeTentative++;
+
         }
     };
 
